@@ -26,10 +26,10 @@ const Bandeau = () => {
         </div>
       </div>
       <div className="social-icons">
-        <FaFacebook size={30} className="social-icon" />
-        <FaSquareXTwitter size={30} color="#000000" className="social-icon" />
-        <FaLinkedin size={30} color="#0a66c2" className="social-icon" />
-        <FaYoutube size={30} color="#ff0000" className="social-icon" />
+        <FaFacebook size={25} className="social-icon" />
+        <FaSquareXTwitter size={25} color="#000000" className="social-icon" />
+        <FaLinkedin size={25} color="#0a66c2" className="social-icon" />
+        <FaYoutube size={25} color="#ff0000" className="social-icon" />
       </div>
     </div>
   );

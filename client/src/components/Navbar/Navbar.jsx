@@ -10,54 +10,44 @@ const Navbar = () => {
   const [isMobileMenu, setIsMobileMenu] = useState(false);
   const [activePageName, setActivePageName] = useState("home");
   const [showModal, setShowModal] = useState(false);
-  useEffect(() => {
-    window.addEventListener("scroll", () => {
-      window.scrollY > 50 ? setSticky(true) : setSticky(false);
-    });
-  }, []);
-  const toggleMenu = () => {
-    setIsMobileMenu(!isMobileMenu);
-  };
-  const handleActive = (payload) => {
-    setActivePageName(payload);
-  };
+
   return (
     <>
       <nav className={` ${sticky ? "dark-nav" : ""} `}>
         <ul className={isMobileMenu ? "" : "hide-mobile-menu"}>
           <li
             className={activePageName === "home" ? "active" : ""}
-            onClick={() => handleActive("home")}
+            onClick={() => setActivePageName("home")}
           >
             <Link to="/"> ACCUEIL</Link>
           </li>
           <li
             className={activePageName === "cnps" ? "active" : ""}
-            onClick={() => handleActive("cnps")}
+            onClick={() => setActivePageName("cnps")}
           >
             <Link to="cnps"> CNPS</Link>
           </li>
           <li
             className={activePageName === "assure" ? "active" : ""}
-            onClick={() => handleActive("assure")}
+            onClick={() => setActivePageName("assure")}
           >
             <Link to="assure">ASSURE(E)</Link>
           </li>
           <li
             className={activePageName === "employeur" ? "active" : ""}
-            onClick={() => handleActive("employeur")}
+            onClick={() => setActivePageName("employeur")}
           >
             <Link to="/employeur">EMPLOYEUR</Link>
           </li>
           <li
             className={activePageName === "beneficiaire" ? "active" : ""}
-            onClick={() => handleActive("beneficiaire")}
+            onClick={() => setActivePageName("beneficiaire")}
           >
             <Link to="/beneficiaire">BENEFICIAIRE</Link>
           </li>
           <li
             className={activePageName === "services" ? "active" : ""}
-            onClick={() => handleActive("services")}
+            onClick={() => setActivePageName("services")}
           >
             <Link to="/services">SERVICES EN LIGNE</Link>
           </li>
@@ -71,11 +61,12 @@ const Navbar = () => {
           </button>
         </div>
       </nav>
-      {showModal &&
-        createPortal(
-          <ModalContent closeModal={() => setShowModal(!showModal)} />,
-          document.body
-        )}
+      {showModal === true
+        ? createPortal(
+            <ModalContent closeModal={() => setShowModal(!showModal)} />,
+            document.body
+          )
+        : null}
     </>
   );
 };

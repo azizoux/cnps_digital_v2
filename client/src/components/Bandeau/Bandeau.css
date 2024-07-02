@@ -4,13 +4,9 @@
   background: #fff;
   color: #0e52a0;
   padding: 10px 10px;
-  /* position: fixed;
-  top: 0px;
-  left: 0; */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  z-index: 10;
 }
 .logo {
   color: #0e52a0;

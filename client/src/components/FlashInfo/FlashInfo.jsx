@@ -17,8 +17,8 @@ const FlashInfo = () => {
     }
   };
   useEffect(() => {
-    const interId = setInterval(slideForward, 100);
-    return () => clearInterval(interId);
+    // const interId = setInterval(slideForward, 100);
+    // return () => clearInterval(interId);
   }, [translator]);
   return (
     <div className="flash-info">

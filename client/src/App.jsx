@@ -10,6 +10,7 @@ import Services from "./pages/Services/Services";
 import Beneficiaire from "./pages/Beneficiaire/Beneficiaire";
 import Cnps from "./pages/Cnps/Cnps";
 import ContactUs from "./pages/ContactUs/ContactUs";
+import SignUp from "./pages/SignUp/SignUp";
 
 const App = () => {
   return (
@@ -25,6 +26,7 @@ const App = () => {
         <Route path="cnps" element={<Cnps />} />
         <Route path="employeur" element={<Employeur />} />
         <Route path="conctactus" element={<ContactUs />} />
+        <Route path="sign-up" element={<SignUp />} />
       </Routes>
     </BrowserRouter>
   );

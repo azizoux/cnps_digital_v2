@@ -11,6 +11,7 @@ import Beneficiaire from "./pages/Beneficiaire/Beneficiaire";
 import Cnps from "./pages/Cnps/Cnps";
 import ContactUs from "./pages/ContactUs/ContactUs";
 import SignUp from "./pages/SignUp/SignUp";
+import SignIn from "./pages/SignIn/SignIn";
 
 const App = () => {
   return (
@@ -27,6 +28,7 @@ const App = () => {
         <Route path="employeur" element={<Employeur />} />
         <Route path="conctactus" element={<ContactUs />} />
         <Route path="sign-up" element={<SignUp />} />
+        <Route path="sign-in" element={<SignIn />} />
       </Routes>
     </BrowserRouter>
   );

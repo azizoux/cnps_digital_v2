@@ -1,5 +1,7 @@
 import React, { useState } from "react";
+import { ImSpinner3 } from "react-icons/im";
 import "./SignUp.css";
+import { useNavigate } from "react-router-dom";
 // const dataForm = {
 //     username: "Abdelaziz",
 //     email:"azizmahamta@gmail.com",
@@ -9,6 +11,8 @@ const SignUp = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
   const handleChange = (e) => {
     if (e.target.id === "username") {
       setUsername(e.target.value);
@@ -25,24 +29,34 @@ const SignUp = () => {
       email,
       password,
     };
+    console.log(dataForm);
     if (!dataForm.username || !dataForm.email || !dataForm.password) {
       return console.log("Please fill out all fields!");
     }
     try {
-      const response = await fetch("http://localhost:5173/sign-up", {
+      setLoading(true);
+      const response = await fetch("http://localhost:8000/api/signup", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ dataForm }),
+        body: JSON.stringify({ ...dataForm }),
       });
       const data = await response.json();
       if (response.ok) {
         console.log(data);
+        setTimeout(() => {
+          setLoading(false);
+          navigate("/");
+        }, 5000);
+      } else {
+        setLoading(false);
+        console.log(data.error);
+        throw new Error(data.error);
       }
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
-  console.log(username, password, email);
   return (
     <div className="sign-up">
       <p>
@@ -81,7 +95,14 @@ const SignUp = () => {
             placeholder="Password"
           />
         </div>
-        <button className="btn btn-primary">Enregistrer</button>
+        {loading ? (
+          <div className="loading">
+            <span className="">Loading...</span>
+            <ImSpinner3 />
+          </div>
+        ) : (
+          <button className="btn btn-primary">Enregistrer</button>
+        )}
       </form>
     </div>
   );

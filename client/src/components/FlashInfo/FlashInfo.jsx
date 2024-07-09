@@ -16,10 +16,10 @@ const FlashInfo = () => {
       slider.current.style.transform = `translateX(${translator}%)`;
     }
   };
-  useEffect(() => {
-    // const interId = setInterval(slideForward, 100);
-    // return () => clearInterval(interId);
-  }, [translator]);
+  // useEffect(() => {
+  //   const interId = setInterval(slideForward, 100);
+  //   return () => clearInterval(interId);
+  // }, [translator]);
   return (
     <div className="flash-info">
       <p className="title">

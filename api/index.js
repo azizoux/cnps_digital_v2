@@ -2,6 +2,7 @@ import express from "express";
 import cors from "cors";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
+import bcryptjs from "bcryptjs";
 
 import User from "./models/User.js";
 
@@ -25,10 +26,11 @@ app.get("/api/verification-assure", (req, res) => {
   res.status(200).json({ message: "Vous etes assure(e)" });
 });
 
-app.post("/sign-up", async (req, res) => {
+app.post("/api/signup", async (req, res) => {
+  console.log(req.body);
   const { username, email, password } = req.body;
   if (!username || !email || !password) {
-    console.log("All the field are required!");
+    return res.sendStatus("All the field are required!");
   }
   const hashedPassword = bcryptjs.hashSync(password, 10);
   const newUser = new User({
@@ -41,6 +43,7 @@ app.post("/sign-up", async (req, res) => {
     res.status(201).json({ message: "Sign-Up Successful" });
   } catch (error) {
     console.log(error);
+    return res.status(500).json({ message: "Erreur interne du server", error });
   }
 });
 

@@ -42,3 +42,14 @@
   color: #fff;
   font-weight: 600;
 }
+.text-signin {
+  margin-top: 10px;
+  color: #ebecfe;
+  font-size: 14px;
+}
+.text-signin span {
+  color: blue;
+  text-decoration: underline;
+  font-size: 16px;
+  margin-left: 10px;
+}

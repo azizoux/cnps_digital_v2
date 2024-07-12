@@ -57,3 +57,11 @@ a {
     padding: 14px 22px;
   }
 }
+.message {
+  padding: 15px;
+  width: 400px;
+  background: lightblue;
+  margin: 10px auto;
+  border: 1px solid #0e52a0;
+  border-radius: 10px;
+}

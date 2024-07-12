@@ -10,8 +10,8 @@ const Home = () => {
     <div>
       <Spaces />
       <section className="articles">
-        {articles.map((article) => (
-          <ArticleCard item={article} />
+        {articles.map((article, index) => (
+          <ArticleCard item={article} key={index} />
         ))}
       </section>
       <section className="services">

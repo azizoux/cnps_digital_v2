@@ -6,7 +6,7 @@ import { FaTwitter, FaLinkedin, FaYoutube, FaFacebook } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { FaPhoneVolume } from "react-icons/fa6";
 
-const Bandeau = () => {
+const Bandeau = ({ currentUser }) => {
   return (
     <div className="bandeau">
       <div className="logo">
@@ -25,11 +25,22 @@ const Bandeau = () => {
           </ul>
         </div>
       </div>
-      <div className="social-icons">
-        <FaFacebook size={25} className="social-icon" />
-        <FaSquareXTwitter size={25} color="#000000" className="social-icon" />
-        <FaLinkedin size={25} color="#0a66c2" className="social-icon" />
-        <FaYoutube size={25} color="#ff0000" className="social-icon" />
+      <div>
+        <div className="social-icons">
+          <FaFacebook size={25} className="social-icon" />
+          <FaSquareXTwitter size={25} color="#000000" className="social-icon" />
+          <FaLinkedin size={25} color="#0a66c2" className="social-icon" />
+          <FaYoutube size={25} color="#ff0000" className="social-icon" />
+        </div>
+        {currentUser && (
+          <div className="user-info">
+            <img src={currentUser.profilePicture} alt="" />
+            <div>
+              <p className="user-name">{currentUser.username}</p>
+              <p className="user-email">{currentUser.email}</p>
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );

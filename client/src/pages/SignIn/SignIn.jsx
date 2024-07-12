@@ -2,12 +2,13 @@ import React, { useState } from "react";
 import { ImSpinner3 } from "react-icons/im";
 import logo from "../../assets/logo.png";
 import "./SignIn.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
-const SignIn = () => {
+const SignIn = ({ setCurrentUser }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
+  const [message, setMessage] = useState("");
   const navigate = useNavigate();
   const handleChange = (e) => {
     if (e.target.id === "email") {
@@ -37,7 +38,15 @@ const SignIn = () => {
       const data = await response.json();
       if (response.ok === true) {
         setLoading(false);
-        navigate("/assure");
+        setCurrentUser(data);
+        navigate("/services");
+      } else {
+        setLoading(false);
+        setMessage(data.message);
+        setTimeout(() => {
+          setMessage("");
+        }, 5000);
+        console.log(data);
       }
     } catch (error) {
       console.log(error);
@@ -45,39 +54,52 @@ const SignIn = () => {
     }
   };
   return (
-    <div className="sign-in">
-      <img src={logo} alt="" />
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Email</label>
-          <input
-            id="email"
-            onChange={handleChange}
-            className="input"
-            type="email"
-            placeholder="Email"
-          />
+    <>
+      {message && (
+        <div className="message">
+          <span>{message}</span>
         </div>
-        <div>
-          <label>Password</label>
-          <input
-            id="password"
-            onChange={handleChange}
-            className="input"
-            type="password"
-            placeholder="Password"
-          />
-        </div>
-        {loading ? (
-          <div className="loading">
-            <span className="">Loading...</span>
-            <ImSpinner3 />
+      )}
+      <div className="sign-in">
+        <img src={logo} alt="" />
+        <form onSubmit={handleSubmit}>
+          <div>
+            <label>Email</label>
+            <input
+              id="email"
+              onChange={handleChange}
+              className="input"
+              type="email"
+              placeholder="Email"
+            />
           </div>
-        ) : (
-          <button className="btn btn-primary">Enregistrer</button>
-        )}
-      </form>
-    </div>
+          <div>
+            <label>Password</label>
+            <input
+              id="password"
+              onChange={handleChange}
+              className="input"
+              type="password"
+              placeholder="Password"
+            />
+          </div>
+          {loading ? (
+            <div className="loading">
+              <span className="">Loading...</span>
+              <ImSpinner3 />
+            </div>
+          ) : (
+            <button className="btn btn-primary">Enregistrer</button>
+          )}
+          <div className="text-signup">
+            Vous n'avez pas encore de compte ?
+            <span>
+              <Link to={"/sign-up"}>S'Enregistrer</Link>
+            </span>
+          </div>
+        </form>
+      </div>
+    </>
   );
 };
 

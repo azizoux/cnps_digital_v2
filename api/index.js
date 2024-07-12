@@ -13,20 +13,16 @@ app.use(cors());
 dotenv.config();
 app.use(express.json());
 
-try {
-  mongoose.connect(process.env.DB_URL, () => {
-    console.log("Connected to MongoDB...");
-  });
-} catch (error) {
-  console.log("Error connecting MongoDB!...", err);
-}
+mongoose
+  .connect(process.env.DB_LOCAL)
+  .then(() => console.log("DB connected..."))
+  .catch((error) => console.log(error));
 
 app.get("/api/verification-assure", (req, res) => {
   res.status(200).json({ message: "Vous etes assure(e)" });
 });
 
 app.post("/api/signup", async (req, res) => {
-  console.log(req.body);
   const { username, email, password } = req.body;
   if (!username || !email || !password) {
     return res
@@ -37,11 +33,11 @@ app.post("/api/signup", async (req, res) => {
   const newUser = new User({
     username,
     email,
-    password: password,
+    password,
   });
   try {
-    await newUser.save();
-    res.status(201).json({ message: "Sign-Up Successful" });
+    const createdUser = await newUser.save();
+    res.status(201).json({ message: "Sign-Up Successful", user: createdUser });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ message: "Erreur interne du server", error });
@@ -56,13 +52,14 @@ app.post("/api/sign-in", async (req, res) => {
   }
 
   try {
-    const newUser = await User.findOne({ email });
+    const newUser = await User.findOne({ email, password });
+    console.log(newUser);
     if (!newUser) {
-      return res.status(404).json({ message: "Email not found..." });
+      return res
+        .status(404)
+        .json({ message: "Incorrect email or password..." });
     }
-    if (newUser.password !== password) {
-      return res.status(401).json({ message: "Wrong password ..." });
-    }
+    console.log(newUser);
     return res.status(200).json(newUser);
   } catch (error) {
     console.log(error);

@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import { ImSpinner3 } from "react-icons/im";
 import "./SignUp.css";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import logo from "../../assets/logo.png";
 
-const SignUp = () => {
+const SignUp = ({ setCurrentUser }) => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const navigate = useNavigate();
   const handleChange = (e) => {
     if (e.target.id === "username") {
       setUsername(e.target.value);
@@ -40,9 +42,11 @@ const SignUp = () => {
       const data = await response.json();
       if (response.ok === true) {
         setMessage(data.message);
+        setCurrentUser(data.user);
         setTimeout(() => {
           setMessage("");
         }, 5000);
+        navigate("/services");
         setLoading(false);
       } else if (data.error.errorResponse.code === 11000) {
         setMessage("l'utilisateur " + username + " existe deja");
@@ -62,11 +66,10 @@ const SignUp = () => {
   };
   return (
     <div className="sign-up">
-      <p>
-        Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugit,
-        excepturi. Suscipit, quis incidunt quo expedita porro voluptates eum
-        aspernatur sequi!
-      </p>
+      <div>
+        <span>{message && message}</span>
+      </div>
+      <img src={logo} alt="" />
       <form onSubmit={handleSubmit}>
         <div>
           <label>Username</label>
@@ -106,7 +109,12 @@ const SignUp = () => {
         ) : (
           <button className="btn btn-primary">Enregistrer</button>
         )}
-        <span>{message && message}</span>
+        <div className="text-signin">
+          Vous avez deja un compte ?
+          <span>
+            <Link to={"/sign-in"}>Se Connecter</Link>
+          </span>
+        </div>
       </form>
     </div>
   );

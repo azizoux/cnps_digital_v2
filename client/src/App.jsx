@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/Navbar/Navbar";
 import Bandeau from "./components/Bandeau/Bandeau";
@@ -12,23 +12,35 @@ import Cnps from "./pages/Cnps/Cnps";
 import ContactUs from "./pages/ContactUs/ContactUs";
 import SignUp from "./pages/SignUp/SignUp";
 import SignIn from "./pages/SignIn/SignIn";
+import PrivateRoute from "./components/Private/PrivateRoute";
 
 const App = () => {
+  const [currentUser, setCurrentUser] = useState(null);
+  console.log(currentUser);
   return (
     <BrowserRouter>
-      <Bandeau />
+      <Bandeau currentUser={currentUser} />
       <FlashInfo />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="assure" element={<Assure />} />
-        <Route path="services" element={<Services />} />
+        <Route element={<PrivateRoute currentUser={currentUser} />}>
+          <Route path="services" element={<Services />} />
+        </Route>
+
         <Route path="beneficiaire" element={<Beneficiaire />} />
         <Route path="cnps" element={<Cnps />} />
         <Route path="employeur" element={<Employeur />} />
         <Route path="conctactus" element={<ContactUs />} />
-        <Route path="sign-up" element={<SignUp />} />
-        <Route path="sign-in" element={<SignIn />} />
+        <Route
+          path="sign-up"
+          element={<SignUp setCurrentUser={setCurrentUser} />}
+        />
+        <Route
+          path="sign-in"
+          element={<SignIn setCurrentUser={setCurrentUser} />}
+        />
       </Routes>
     </BrowserRouter>
   );

@@ -1,15 +1,20 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { ImSpinner3 } from "react-icons/im";
 import logo from "../../assets/logo.png";
+import { useSelector, useDispatch } from "react-redux";
 import "./SignIn.css";
+import { signInSuccess } from "../../features/userSlice";
 import { useNavigate, Link } from "react-router-dom";
+// import { UserContext } from "../../UserContext";
 
-const SignIn = ({ setCurrentUser }) => {
+const SignIn = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  console.log(signInSuccess);
   const handleChange = (e) => {
     if (e.target.id === "email") {
       setEmail(e.target.value);
@@ -41,7 +46,7 @@ const SignIn = ({ setCurrentUser }) => {
       const data = await response.json();
       if (response.ok === true) {
         setLoading(false);
-        setCurrentUser(data);
+        dispatch(signInSuccess(data));
         navigate("/services");
       } else {
         setLoading(false);

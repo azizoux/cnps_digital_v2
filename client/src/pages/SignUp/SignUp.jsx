@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { ImSpinner3 } from "react-icons/im";
 import "./SignUp.css";
 import { useNavigate, Link } from "react-router-dom";
 import logo from "../../assets/logo.png";
+import { UserContext } from "../../UserContext";
 
-const SignUp = ({ setCurrentUser }) => {
+const SignUp = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const [message, setMessage] = useState("");
+  const { currentUser, setCurrentUser } = useContext(UserContext);
   const navigate = useNavigate();
   const handleChange = (e) => {
     if (e.target.id === "username") {

@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./Bandeau.css";
 import logo from "../../assets/logo.png";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { FaTwitter, FaLinkedin, FaYoutube, FaFacebook } from "react-icons/fa";
 import { MdEmail } from "react-icons/md";
 import { FaPhoneVolume } from "react-icons/fa6";
+import { UserContext } from "../../UserContext";
+import { useSelector } from "react-redux";
 
-const Bandeau = ({ currentUser }) => {
+const Bandeau = () => {
+  // const { currentUser } = useContext(UserContext);
+  const currentUser = useSelector((state) => state.user.currentUser);
   return (
     <div className="bandeau">
       <div className="logo">

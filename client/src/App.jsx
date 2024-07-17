@@ -15,17 +15,15 @@ import SignIn from "./pages/SignIn/SignIn";
 import PrivateRoute from "./components/Private/PrivateRoute";
 
 const App = () => {
-  const [currentUser, setCurrentUser] = useState(null);
-  console.log(currentUser);
   return (
     <BrowserRouter>
-      <Bandeau currentUser={currentUser} />
+      <Bandeau />
       <FlashInfo />
       <Navbar />
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="assure" element={<Assure />} />
-        <Route element={<PrivateRoute currentUser={currentUser} />}>
+        <Route element={<PrivateRoute />}>
           <Route path="services" element={<Services />} />
         </Route>
 
@@ -33,14 +31,8 @@ const App = () => {
         <Route path="cnps" element={<Cnps />} />
         <Route path="employeur" element={<Employeur />} />
         <Route path="conctactus" element={<ContactUs />} />
-        <Route
-          path="sign-up"
-          element={<SignUp setCurrentUser={setCurrentUser} />}
-        />
-        <Route
-          path="sign-in"
-          element={<SignIn setCurrentUser={setCurrentUser} />}
-        />
+        <Route path="sign-up" element={<SignUp />} />
+        <Route path="sign-in" element={<SignIn />} />
       </Routes>
     </BrowserRouter>
   );
